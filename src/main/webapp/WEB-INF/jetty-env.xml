@@ -1,0 +1,18 @@
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+	<New class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg />
+		<Arg>jdbc/trainingdb</Arg>
+		<Arg>
+			<New class="com.jolbox.bonecp.BoneCPDataSource">
+				<Set name="DatasourceBean">
+					<New class="org.hsqldb.jdbc.JDBCDataSource">
+						<Set name="url">jdbc:hsqldb:file:target/data/trainingdb</Set>
+						<Set name="user">dbuser</Set>
+						<Set name="password">dbpassword</Set>
+					</New>
+				</Set>
+			</New>
+		</Arg>
+	</New>
+</Configure>
