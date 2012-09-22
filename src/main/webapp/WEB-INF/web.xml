@@ -2,7 +2,14 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
+
 	<resource-ref>
 		<res-ref-name>jdbc/trainingdb</res-ref-name>
 	</resource-ref>
+
+    <servlet-mapping>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>/jsp/*</url-pattern>
+    </servlet-mapping>
+
 </web-app>
