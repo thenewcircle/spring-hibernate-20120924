@@ -5,7 +5,7 @@
 </head>
 <body>
 	<form action="contact" method="post">
-		<input type="hidden" name="add">
+		<input type="hidden" name="add" value="true">
 		<ul>
 			<li>name: <input type="text" name="name"></li>
 			<li>street <input type="text" name="street"></li>
