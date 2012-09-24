@@ -50,7 +50,8 @@ public class AddressRepository {
 		try {
 			Statement statement = connection.createStatement();
 			try {
-				ResultSet results = statement.executeQuery("select * from address where id = " + id);
+				ResultSet results = statement
+						.executeQuery("select * from address where id = " + id);
 				try {
 					if (!results.next()) {
 						return null;
@@ -69,11 +70,62 @@ public class AddressRepository {
 	}
 
 	public void create(Address address) throws SQLException {
+		Connection connection = ds.getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			try {
+				statement.executeUpdate(
+						"insert into address (street, city, state, zip) values ('"
+								+ address.getStreet() + "', '"
+								+ address.getCity() + "', '"
+								+ address.getState() + "', '"
+								+ address.getZip() + "')",
+						Statement.RETURN_GENERATED_KEYS);
+				ResultSet generatedKeys = statement.getGeneratedKeys();
+				try {
+					if (generatedKeys.next())
+						address.setId(generatedKeys.getLong("id"));
+				} finally {
+					generatedKeys.close();
+				}
+			} finally {
+				statement.close();
+			}
+		} finally {
+			connection.close();
+		}
+	}
 
+	public void update(Address address) throws SQLException {
+		Connection connection = ds.getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			try {
+				statement.executeUpdate("update address set street='"
+						+ address.getStreet() + "', city='" + address.getCity()
+						+ "', state='" + address.getState() + "', zip='"
+						+ address.getZip() + "' where id=" + address.getId());
+			} finally {
+				statement.close();
+			}
+		} finally {
+			connection.close();
+		}
 	}
 
 	public void delete(Address address) throws SQLException {
-
+		Connection connection = ds.getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			try {
+				statement.executeUpdate("delete from address where id="
+						+ address.getId());
+			} finally {
+				statement.close();
+			}
+		} finally {
+			connection.close();
+		}
 	}
 
 	private static Address unmarshal(ResultSet results) throws SQLException {
