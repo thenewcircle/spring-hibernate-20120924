@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.Context;
@@ -47,7 +48,27 @@ public class ContactRepository {
 	}
 
 	public List<Contact> findAll() throws SQLException {
-		return null; // TODO
+		Connection connection = ds.getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			try {
+				ResultSet results = statement
+						.executeQuery("select * from contact");
+				try {
+					List<Contact> contacts = new ArrayList<Contact>();
+					while (results.next()) {
+						contacts.add(unmarshal(results));
+					}
+					return contacts;
+				} finally {
+					results.close();
+				}
+			} finally {
+				statement.close();
+			}
+		} finally {
+			connection.close();
+		}
 	}
 
 	public Contact find(long id) throws SQLException {
