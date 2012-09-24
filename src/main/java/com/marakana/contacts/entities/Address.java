@@ -8,6 +8,15 @@ public class Address {
 	private String state;
 	private String zip;
 
+	public Address() {}
+
+	public Address(String street, String city, String state, String zip) {
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+	}
+
 	public Long getId() {
 		return id;
 	}
