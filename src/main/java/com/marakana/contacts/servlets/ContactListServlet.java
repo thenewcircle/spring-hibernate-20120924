@@ -1,6 +1,7 @@
 package com.marakana.contacts.servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,18 +10,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/hello-servlet")
-public class HelloWorld extends HttpServlet {
+import com.marakana.contacts.repositories.ContactRepository;
+
+@WebServlet("/contacts")
+public class ContactListServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	private final ContactRepository contactRepository = new ContactRepository();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String[] names = request.getParameter("names").split("\\|");
-		request.setAttribute("names", names);
-		RequestDispatcher view = request.getRequestDispatcher("jsp/hello.jsp");
-		view.forward(request, response);
+		try {
+			request.setAttribute("contacts", contactRepository.findAll());
+			RequestDispatcher view = request.getRequestDispatcher("jsp/contactList.jsp");
+			view.forward(request, response);
+		} catch (SQLException e) {
+			throw new ServletException(e);
+		}
 	}
 
 }
