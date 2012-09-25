@@ -1,11 +1,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<title>add contact</title>
+<title>add office</title>
 </head>
 <body>
-	<form action="contact" method="post">
-		<input type="hidden" name="add" value="true">
+	<form action="office" method="post">
+		<input type="hidden" name="add">
+		<input type="hidden" name="company" value="${company.id}">
 		<ul>
 			<li>name: <input type="text" name="name"></li>
 			<li>street <input type="text" name="street"></li>
@@ -15,6 +16,6 @@
 		</ul>
 		<input type="submit" value="add">
 	</form>
-	<a href="contacts">back to contacts</a>
+	<a href="${company.URI}">back to ${company.name}</a>
 </body>
 </html>

@@ -9,34 +9,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.marakana.contacts.entities.Address;
-import com.marakana.contacts.entities.Contact;
-import com.marakana.contacts.repositories.ContactRepository;
+import com.marakana.contacts.entities.Company;
+import com.marakana.contacts.repositories.Repository;
 
-@WebServlet("/contact")
-public class ContactServlet extends HttpServlet {
+@WebServlet("/company")
+public class CompanyServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private final ContactRepository contactRepository = new ContactRepository();
+	private final Repository<Company> companyRepository = new Repository<Company>(Company.class);
 
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
 			if (request.getParameter("add") != null) {
-				request.getRequestDispatcher("jsp/addContact.jsp").forward(
+				request.getRequestDispatcher("jsp/addCompany.jsp").forward(
 						request, response);
 			} else {
 				long id = Long.parseLong(request.getParameter("id"));
-				Contact contact = contactRepository.find(id);
-				request.setAttribute("contact", contact);
+				Company company = companyRepository.find(id);
+				request.setAttribute("company", company);
 
 				String viewName;
 				if (request.getParameter("edit") != null)
-					viewName = "jsp/editContact.jsp";
+					viewName = "jsp/editCompany.jsp";
 				else
-					viewName = "jsp/contact.jsp";
+					viewName = "jsp/company.jsp";
 				RequestDispatcher view = request.getRequestDispatcher(viewName);
 				view.forward(request, response);
 			}
@@ -49,29 +48,21 @@ public class ContactServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
-			Contact contact;
-			Address address;
+			Company company;
 
 			if (request.getParameter("edit") != null) {
 				long id = Long.parseLong(request.getParameter("id"));
-				contact = contactRepository.find(id);
-				address = contact.getAddress();
+				company = companyRepository.find(id);
 			} else if (request.getParameter("add") != null) {
-				contact = new Contact();
-				address = new Address();
-				contact.setAddress(address);
+				company = new Company();
 			} else {
 				throw new UnsupportedOperationException("invalid method");
 			}
 
-			contact.setName(request.getParameter("name"));
-			address.setStreet(request.getParameter("street"));
-			address.setCity(request.getParameter("city"));
-			address.setState(request.getParameter("state"));
-			address.setZip(request.getParameter("zip"));
-			contactRepository.save(contact);
+			company.setName(request.getParameter("name"));
+			company = companyRepository.save(company);
 
-			response.sendRedirect("contact?id=" + contact.getId());
+			response.sendRedirect("company?id=" + company.getId());
 
 		} catch (Exception e) {
 			throw new ServletException(e);

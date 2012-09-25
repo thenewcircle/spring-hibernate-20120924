@@ -1,6 +1,5 @@
 package com.marakana.contacts.repositories;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,20 +14,21 @@ public class Repository<E> {
 	public Repository(Class<E> entityClass) {
 		this.entityClass = entityClass;
 	}
-	
+
 	public List<E> findAll() {
 		return em.createQuery("from " + entityClass.getSimpleName(), entityClass).getResultList();
 	}
 
-	public E find(long id) throws SQLException {
+	public E find(long id) {
 		return em.find(entityClass, id);
 	}
 
-	public void save(E entity) {
+	public E save(E entity) {
 		try {
 			em.getTransaction().begin();
-			em.persist(entity);
+			entity = em.merge(entity);
 			em.getTransaction().commit();
+			return entity;
 		} catch (Exception e) {
 			if (e instanceof RollbackException) {
 				throw (RollbackException) e;
