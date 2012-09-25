@@ -22,26 +22,41 @@ public class ContactServlet extends HttpServlet {
 	private final ContactRepository contactRepository = new ContactRepository();
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("add") != null) {
-			request.getRequestDispatcher("jsp/addContact.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp/addContact.jsp").forward(request,
+					response);
 		} else {
-			// TODO
-			super.doGet(request, response);
+			long id = Long.parseLong(request.getParameter("id"));
+			try {
+				Contact contact = contactRepository.find(id);
+				Address address = addressRepository
+						.find(contact.getAddressId());
+				request.setAttribute("contact", contact);
+				request.setAttribute("address", address);
+				request.getRequestDispatcher("jsp/viewContact.jsp").forward(
+						request, response);
+			} catch (SQLException e) {
+				throw new ServletException(e);
+			}
 		}
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		try {
 			if (request.getParameter("add") != null) {
-				Address address = new Address(request.getParameter("street"), request.getParameter("city"), request.getParameter("state"), request.getParameter("zip"));
+				Address address = new Address(request.getParameter("street"),
+						request.getParameter("city"),
+						request.getParameter("state"),
+						request.getParameter("zip"));
 				addressRepository.create(address);
-				Contact contact = new Contact(request.getParameter("name"), address.getId());
+				Contact contact = new Contact(request.getParameter("name"),
+						address.getId());
 				contactRepository.create(contact);
-				response.sendRedirect("contacts");
+				response.sendRedirect("contact?id=" + contact.getId());
 			}
 		} catch (SQLException e) {
 			throw new ServletException(e);
