@@ -29,8 +29,9 @@ public class ContactServlet extends HttpServlet {
 				request.getRequestDispatcher("jsp/addContact.jsp").forward(
 						request, response);
 			} else {
-				
-				// get contact id from request parameter, and populate model with
+
+				// get contact id from request parameter, and populate model
+				// with
 				// the contact and address objects
 				long id = Long.parseLong(request.getParameter("id"));
 				Contact contact = contactRepository.find(id);
@@ -59,7 +60,8 @@ public class ContactServlet extends HttpServlet {
 		try {
 			if (request.getParameter("add") != null) {
 
-				// create new contact and address from form parameters, and persist
+				// create new contact and address from form parameters, and
+				// persist
 				Address address = new Address(request.getParameter("street"),
 						request.getParameter("city"),
 						request.getParameter("state"),
@@ -68,7 +70,7 @@ public class ContactServlet extends HttpServlet {
 				Contact contact = new Contact(request.getParameter("name"),
 						address.getId());
 				contactRepository.create(contact);
-				
+
 				// redirect to contact view page
 				response.sendRedirect("contact?id=" + contact.getId());
 
@@ -86,9 +88,20 @@ public class ContactServlet extends HttpServlet {
 				address.setZip(request.getParameter("zip"));
 				contactRepository.update(contact);
 				addressRepository.update(address);
-				
+
 				// redirect to contact view page
 				response.sendRedirect("contact?id=" + contact.getId());
+			} else if (request.getParameter("delete") != null) {
+				// look up existing contact and address, and delete
+				long id = Long.parseLong(request.getParameter("id"));
+				Contact contact = contactRepository.find(id);
+				Address address = addressRepository
+						.find(contact.getAddressId());
+				contactRepository.delete(contact);
+				addressRepository.delete(address);
+
+				// redirect to contact list page
+				response.sendRedirect("contacts");
 			} else {
 				super.doPost(request, response);
 			}
