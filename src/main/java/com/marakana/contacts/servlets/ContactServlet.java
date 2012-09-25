@@ -31,7 +31,7 @@ public class ContactServlet extends HttpServlet {
 			// with the contact and address objects
 			long id = Long.parseLong(request.getParameter("id"));
 			Contact contact = contactRepository.find(id);
-			Address address = addressRepository.find(contact.getAddressId());
+			Address address = contact.getAddress();
 			request.setAttribute("contact", contact);
 			request.setAttribute("address", address);
 
@@ -57,10 +57,9 @@ public class ContactServlet extends HttpServlet {
 			Address address = new Address(request.getParameter("street"),
 					request.getParameter("city"),
 					request.getParameter("state"), request.getParameter("zip"));
-			addressRepository.save(address);
-			Contact contact = new Contact(request.getParameter("name"),
-					address.getId());
-			contactRepository.save(contact);
+			address = addressRepository.save(address);
+			Contact contact = new Contact(request.getParameter("name"), address);
+			contact = contactRepository.save(contact);
 
 			// redirect to contact view page
 			response.sendRedirect("contact?id=" + contact.getId());
@@ -70,7 +69,7 @@ public class ContactServlet extends HttpServlet {
 			// look up existing contact and address, edit fields and persist
 			long id = Long.parseLong(request.getParameter("id"));
 			Contact contact = contactRepository.find(id);
-			Address address = addressRepository.find(contact.getAddressId());
+			Address address = contact.getAddress();
 			contact.setName(request.getParameter("name"));
 			address.setStreet(request.getParameter("street"));
 			address.setCity(request.getParameter("city"));
@@ -85,7 +84,7 @@ public class ContactServlet extends HttpServlet {
 			// look up existing contact and address, and delete
 			long id = Long.parseLong(request.getParameter("id"));
 			Contact contact = contactRepository.find(id);
-			Address address = addressRepository.find(contact.getAddressId());
+			Address address = contact.getAddress();
 			contactRepository.delete(contact);
 			addressRepository.delete(address);
 
