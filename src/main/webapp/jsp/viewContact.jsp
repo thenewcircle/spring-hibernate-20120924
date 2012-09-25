@@ -9,6 +9,6 @@
 		<li>${address.street}</li>
 		<li>${address.city}, ${address.state} ${address.zip}</li>
 	</ul>
-	<a href="contacts">back to contact list</a>
+	<a href="contact?edit&id=${contact.id}">edit contact</a> | <a href="contacts">back to contact list</a>
 </body>
 </html>
