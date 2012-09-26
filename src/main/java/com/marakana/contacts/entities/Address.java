@@ -2,15 +2,9 @@ package com.marakana.contacts.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 @Entity
-public class Address {
-
-	@Id
-	@GeneratedValue
-	private Long id;
+public class Address extends BaseEntity {
 
 	@Column
 	private String street;
@@ -32,14 +26,6 @@ public class Address {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getStreet() {
