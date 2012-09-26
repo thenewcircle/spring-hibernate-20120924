@@ -9,6 +9,7 @@
 	<input type="hidden" name="edit">
 	<input type="hidden" name="id" value="${contact.id}">
 	<ul>
+		<c:set var="address" value="${contact.address}" />
 		<li>name: <input type="text" name="name" value="${contact.name}"></li>
 		<li>street: <input type="text" name="street" value="${address.street}"></li>
 		<li>city: <input type="text" name="city" value="${address.city}"></li>
