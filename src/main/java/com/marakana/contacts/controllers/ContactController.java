@@ -46,23 +46,21 @@ public class ContactController {
 		return "contact/view";
 	}
 
+	@RequestMapping(value = "/contact", params = "add", method = RequestMethod.POST)
+	public String postAddContact(@RequestParam String name,
+			@RequestParam String street, @RequestParam String city,
+			@RequestParam String state, @RequestParam String zip) {
+		Address address = new Address(street, city, state, zip);
+		Contact contact = new Contact(name, address);
+		contact = contactRepository.save(contact);
+
+		return "redirect:contact?id=" + contact.getId();
+	}
+
 	@RequestMapping(value = "/contact", method = RequestMethod.POST)
 	public void postContact(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("add") != null) {
-
-			// create new contact and address from form parameters, and
-			// persist
-			Address address = new Address(request.getParameter("street"),
-					request.getParameter("city"),
-					request.getParameter("state"), request.getParameter("zip"));
-			Contact contact = new Contact(request.getParameter("name"), address);
-			contact = contactRepository.save(contact);
-
-			// redirect to contact view page
-			response.sendRedirect("contact?id=" + contact.getId());
-
-		} else if (request.getParameter("edit") != null) {
+		if (request.getParameter("edit") != null) {
 
 			// look up existing contact and address, edit fields and persist
 			long id = Long.parseLong(request.getParameter("id"));

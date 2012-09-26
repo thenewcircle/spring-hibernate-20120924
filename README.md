@@ -27,6 +27,11 @@ Performance/correctness issues:
   - no transactions
   - no good way to "create table if not exists"
 
+Reference Material
+------------------
+
+* http://static.springsource.org/spring/docs/current/spring-framework-reference/html/mvc.html
+
 Videos
 ------
 
