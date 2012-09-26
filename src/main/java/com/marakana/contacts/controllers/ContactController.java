@@ -2,13 +2,13 @@ package com.marakana.contacts.controllers;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,12 +23,9 @@ public class ContactController {
 	private ContactRepository contactRepository;
 
 	@RequestMapping(value = "/contacts", method = RequestMethod.GET)
-	public void getContactList(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
-		request.setAttribute("contacts", contactRepository.findAll());
-		RequestDispatcher view = request
-				.getRequestDispatcher("view/contact/list.jsp");
-		view.forward(request, response);
+	public String getContactList(Model model) {
+		model.addAttribute("contacts", contactRepository.findAll());
+		return "contact/list";
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
