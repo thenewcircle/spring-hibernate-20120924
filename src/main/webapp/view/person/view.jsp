@@ -10,7 +10,7 @@
 		<li>${address.street}</li>
 		<li>${address.city}, ${address.state} ${address.zip}</li>
 	</ul>
-	<a href="person?edit&id=${person.id}">edit person</a> |
+	<a href="${person.url}&edit">edit person</a> |
 	<a href="contacts">back to contact list</a>
 </body>
 </html>

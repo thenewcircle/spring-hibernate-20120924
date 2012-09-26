@@ -7,9 +7,9 @@
 	<h1>contacts</h1>
 	<ul>
 		<c:forEach var="contact" items="${contacts}">
-			<li><a href="person?id=${contact.id}">${contact.name}</a></li> <!-- FIXME: url? -->
+			<li><a href="${contact.url}">${contact.name}</a></li>
 		</c:forEach>
 	</ul>
-	<a href="person?add">add a new person</a>
+	<a href="person?add">add a new person</a> | <a href="company?add">add a new company</a>
 </body>
 </html>
