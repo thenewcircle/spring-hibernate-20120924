@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.marakana.contacts.entities.Address;
 import com.marakana.contacts.entities.Contact;
@@ -28,28 +29,21 @@ public class ContactController {
 		return "contact/list";
 	}
 
-	@RequestMapping(value = "/contact", method = RequestMethod.GET)
-	public void getContact(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("add") != null) {
-			request.getRequestDispatcher("view/contact/add.jsp").forward(
-					request, response);
-		} else {
-			// get contact id from request parameter, and populate model
-			// with the contact and address objects
-			long id = Long.parseLong(request.getParameter("id"));
-			Contact contact = contactRepository.findOne(id);
-			request.setAttribute("contact", contact);
+	@RequestMapping(value = "/contact", params = "add", method = RequestMethod.GET)
+	public String getAddContact() {
+		return "contact/add";
+	}
 
-			// dispatch either to the edit page or to the view page
-			if (request.getParameter("edit") != null) {
-				request.getRequestDispatcher("view/contact/edit.jsp").forward(
-						request, response);
-			} else {
-				request.getRequestDispatcher("view/contact/view.jsp").forward(
-						request, response);
-			}
-		}
+	@RequestMapping(value = "/contact", params = "edit", method = RequestMethod.GET)
+	public String getEditContact(@RequestParam long id, Model model) {
+		model.addAttribute("contact", contactRepository.findOne(id));
+		return "contact/edit";
+	}
+
+	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	public String getViewContact(@RequestParam long id, Model model) {
+		model.addAttribute("contact", contactRepository.findOne(id));
+		return "contact/view";
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.POST)
