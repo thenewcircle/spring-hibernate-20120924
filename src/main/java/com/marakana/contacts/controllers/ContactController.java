@@ -1,11 +1,5 @@
 package com.marakana.contacts.controllers;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,32 +51,27 @@ public class ContactController {
 		return "redirect:contact?id=" + contact.getId();
 	}
 
-	@RequestMapping(value = "/contact", method = RequestMethod.POST)
-	public void postContact(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("edit") != null) {
+	@RequestMapping(value = "/contact", params = "edit", method = RequestMethod.POST)
+	public String postEditContact(@RequestParam long id,
+			@RequestParam String name, @RequestParam String street,
+			@RequestParam String city, @RequestParam String state,
+			@RequestParam String zip) {
+		Contact contact = contactRepository.findOne(id);
+		Address address = contact.getAddress();
+		contact.setName(name);
+		address.setStreet(street);
+		address.setCity(city);
+		address.setState(state);
+		address.setZip(zip);
+		contactRepository.save(contact);
 
-			// look up existing contact and address, edit fields and persist
-			long id = Long.parseLong(request.getParameter("id"));
-			Contact contact = contactRepository.findOne(id);
-			Address address = contact.getAddress();
-			contact.setName(request.getParameter("name"));
-			address.setStreet(request.getParameter("street"));
-			address.setCity(request.getParameter("city"));
-			address.setState(request.getParameter("state"));
-			address.setZip(request.getParameter("zip"));
-			contactRepository.save(contact);
-
-			// redirect to contact view page
-			response.sendRedirect("contact?id=" + contact.getId());
-		} else if (request.getParameter("delete") != null) {
-			// look up existing contact, and delete
-			long id = Long.parseLong(request.getParameter("id"));
-			Contact contact = contactRepository.findOne(id);
-			contactRepository.delete(contact);
-
-			// redirect to contact list page
-			response.sendRedirect("contacts");
-		}
+		return "redirect:contact?id=" + contact.getId();
 	}
+
+	@RequestMapping(value = "/contact", params = "delete", method = RequestMethod.POST)
+	public String postDeleteContact(@RequestParam long id) {
+		contactRepository.delete(id);
+		return "redirect:contacts";
+	}
+
 }
