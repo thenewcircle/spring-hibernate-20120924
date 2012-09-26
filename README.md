@@ -31,6 +31,7 @@ Reference Material
 ------------------
 
 * http://static.springsource.org/spring/docs/current/spring-framework-reference/html/mvc.html
+* http://docs.jboss.org/hibernate/annotations/3.5/reference/en/html_single/
 
 Videos
 ------

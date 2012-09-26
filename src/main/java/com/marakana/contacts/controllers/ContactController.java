@@ -45,7 +45,7 @@ public class ContactController {
 			@RequestParam String street, @RequestParam String city,
 			@RequestParam String state, @RequestParam String zip) {
 		Address address = new Address(street, city, state, zip);
-		Contact contact = new Contact(name, address);
+		Contact contact = null; // TODO new Contact(name, address);
 		contact = contactRepository.save(contact);
 
 		return "redirect:contact?id=" + contact.getId();
@@ -57,7 +57,7 @@ public class ContactController {
 			@RequestParam String city, @RequestParam String state,
 			@RequestParam String zip) {
 		Contact contact = contactRepository.findOne(id);
-		Address address = contact.getAddress();
+		Address address = null; // TODO contact.getAddress();
 		contact.setName(name);
 		address.setStreet(street);
 		address.setCity(city);

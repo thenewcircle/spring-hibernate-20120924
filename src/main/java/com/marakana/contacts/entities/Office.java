@@ -4,9 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Contact {
+public class Office {
 
 	@Id
 	@GeneratedValue
@@ -15,11 +16,14 @@ public class Contact {
 	@Column
 	private String name;
 
-	public Contact() {
+	@OneToOne
+	private Address address;
+
+	public Office() {
 	}
 
-	public Contact(String name) {
-		this.name = name;
+	public Office(Address address) {
+		this.address = address;
 	}
 
 	public Long getId() {
@@ -36,6 +40,14 @@ public class Contact {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }
