@@ -32,7 +32,7 @@ public class ContactController {
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
-	protected void getContact(HttpServletRequest request,
+	public void getContact(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("add") != null) {
 			request.getRequestDispatcher("view/contact/add.jsp").forward(
@@ -56,7 +56,7 @@ public class ContactController {
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.POST)
-	protected void postContact(HttpServletRequest request,
+	public void postContact(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("add") != null) {
 
