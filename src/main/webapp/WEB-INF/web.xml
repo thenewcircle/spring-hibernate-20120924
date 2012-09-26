@@ -3,17 +3,23 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 
-	<resource-ref>
-		<res-ref-name>jdbc/trainingdb</res-ref-name>
-	</resource-ref>
-
-	<persistence-unit-ref>
-		<persistence-unit-ref-name>training</persistence-unit-ref-name>
-	</persistence-unit-ref>
+	<servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>jsp</servlet-name>
-		<url-pattern>/jsp/*</url-pattern>
+		<url-pattern>/view/*</url-pattern>
 	</servlet-mapping>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
 </web-app>
