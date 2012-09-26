@@ -3,15 +3,12 @@ package com.marakana.contacts.entities;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Company extends Contact {
 
-	@OneToMany
-	@JoinTable(joinColumns = @JoinColumn(name = "company_id"), inverseJoinColumns = @JoinColumn(name = "office_id"))
+	@OneToMany(mappedBy="company")
 	private Set<Office> offices;
 
 	public Company() {

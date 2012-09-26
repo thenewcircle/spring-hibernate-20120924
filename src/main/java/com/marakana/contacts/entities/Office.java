@@ -2,6 +2,7 @@ package com.marakana.contacts.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -12,6 +13,9 @@ public class Office extends BaseEntity {
 
 	@OneToOne
 	private Address address;
+
+	@ManyToOne
+	private Company company;
 
 	public Office() {
 	}
@@ -34,6 +38,14 @@ public class Office extends BaseEntity {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 }
