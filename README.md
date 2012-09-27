@@ -27,6 +27,12 @@ Performance/correctness issues:
   - no transactions
   - no good way to "create table if not exists"
 
+Reference Material
+------------------
+
+* http://static.springsource.org/spring/docs/current/spring-framework-reference/html/mvc.html
+* http://docs.jboss.org/hibernate/annotations/3.5/reference/en/html_single/
+
 Videos
 ------
 
@@ -40,3 +46,8 @@ Videos
   * https://mrkn.s3.amazonaws.com/recordings/spring-hibernate-20120924/2.2.mov
   * https://mrkn.s3.amazonaws.com/recordings/spring-hibernate-20120924/2.3.mov
   * https://mrkn.s3.amazonaws.com/recordings/spring-hibernate-20120924/2.4.mov
+* Day 3
+  * https://mrkn.s3.amazonaws.com/recordings/spring-hibernate-20120924/3.1.mov
+  * https://mrkn.s3.amazonaws.com/recordings/spring-hibernate-20120924/3.2.mov
+  * https://mrkn.s3.amazonaws.com/recordings/spring-hibernate-20120924/3.3.mov
+  * https://mrkn.s3.amazonaws.com/recordings/spring-hibernate-20120924/3.4.mov
