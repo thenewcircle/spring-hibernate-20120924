@@ -6,16 +6,19 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class Office extends UrlEntity {
 
 	@Column
+	@NotBlank
 	private String name;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	private Address address;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Company company;
 
 	public Office() {

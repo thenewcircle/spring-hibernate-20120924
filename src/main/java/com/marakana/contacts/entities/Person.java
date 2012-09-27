@@ -7,7 +7,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Person extends Contact {
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	private Address address;
 
 	public Person() {

@@ -3,19 +3,25 @@ package com.marakana.contacts.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class Address extends BaseEntity {
 
 	@Column
+	@NotBlank
 	private String street;
 
 	@Column
+	@NotBlank
 	private String city;
 
 	@Column
+	@NotBlank
 	private String state;
 
 	@Column
+	@NotBlank
 	private String zip;
 
 	public Address() {
