@@ -2,13 +2,15 @@ package com.marakana.contacts.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Company extends Contact {
 
-	@OneToMany(mappedBy="company")
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Office> offices;
 
 	public Company() {
@@ -25,11 +27,6 @@ public class Company extends Contact {
 
 	public void setOffices(Set<Office> offices) {
 		this.offices = offices;
-	}
-
-	@Override
-	public String getUrl() {
-		return "company?id=" + getId();
 	}
 
 }
