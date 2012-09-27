@@ -9,7 +9,7 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class Contact extends UrlEntity {
 
-	@Column
+	@Column(nullable = false)
 	private String name;
 
 	public Contact() {
