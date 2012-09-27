@@ -5,7 +5,11 @@
 </head>
 <body>
 	<h1>${company.name}</h1>
-	<!-- TODO: list offices -->
+	<ul>
+		<c:forEach var="office" items="${company.offices}">
+			<li><a href="${office.url}">${office.name}</a></li>
+		</c:forEach>
+	</ul>
 	<a href="${company.url}&edit">edit company</a> |
 	<a href="contacts">back to contact list</a>
 </body>
