@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Employee {
-    String message() default "manager and employee must work for the same company";
+    String message() default "manager and employee must work for the same company, management chain must be acyclic";
     Class<?>[] groups() default {};
     Class<?>[] payload() default {};
 }
