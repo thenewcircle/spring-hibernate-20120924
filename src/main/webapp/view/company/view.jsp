@@ -11,6 +11,7 @@
 		</c:forEach>
 	</ul>
 	<a href="${company.url}&edit">edit company</a> |
+	<a href="office?add&company_id=${company.id}">add office</a> |
 	<a href="contacts">back to contact list</a>
 </body>
 </html>

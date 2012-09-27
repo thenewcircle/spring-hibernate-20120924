@@ -8,7 +8,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Company extends Contact {
 
-	@OneToMany(mappedBy="company")
+	@OneToMany(mappedBy = "company")
 	private Set<Office> offices;
 
 	public Company() {
