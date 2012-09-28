@@ -126,3 +126,5 @@ Videos
   * https://mrkn.s3.amazonaws.com/recordings/spring-hibernate-20120924/4.2.mov
   * https://mrkn.s3.amazonaws.com/recordings/spring-hibernate-20120924/4.3.mov
   * https://mrkn.s3.amazonaws.com/recordings/spring-hibernate-20120924/4.4.mov
+* Day 5
+  * https://mrkn.s3.amazonaws.com/recordings/spring-hibernate-20120924/5.1.mov
