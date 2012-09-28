@@ -4,14 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.marakana.contacts.entities.Address;
 import com.marakana.contacts.entities.Person;
 import com.marakana.contacts.repositories.CompanyRepository;
 import com.marakana.contacts.repositories.PersonRepository;
+import com.marakana.contacts.representations.PersonRepresentation;
 
 @Controller
 public class PersonController {
@@ -39,6 +42,11 @@ public class PersonController {
 	public String getViewPerson(@RequestParam long id, Model model) {
 		model.addAttribute("person", personRepository.findOne(id));
 		return "person/view";
+	}
+
+	@RequestMapping(value = "/person/{id}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody PersonRepresentation getPerson(@PathVariable long id) {
+		return new PersonRepresentation(personRepository.findOne(id));
 	}
 
 	@RequestMapping(value = "/person", params = "add", method = RequestMethod.POST)
