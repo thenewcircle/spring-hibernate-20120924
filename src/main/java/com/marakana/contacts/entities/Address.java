@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.marakana.contacts.validators.ZipCode;
+
 @Entity
 public class Address extends BaseEntity {
 
@@ -21,7 +23,7 @@ public class Address extends BaseEntity {
 	private String state;
 
 	@Column(nullable = false, length = 64)
-	@NotBlank
+	@ZipCode
 	private String zip;
 
 	public Address() {

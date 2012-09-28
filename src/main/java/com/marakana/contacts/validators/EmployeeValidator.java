@@ -26,6 +26,6 @@ public class EmployeeValidator implements ConstraintValidator<Employee, Person> 
 			manager = manager.getManager();
 		}
 		return true;
-		
 	}
+
 }
