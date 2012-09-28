@@ -43,6 +43,14 @@
             <scope>compile</scope>
         </dependency>
 
+		<!-- json object mapper -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.10</version>
+			<scope>compile</scope>
+		</dependency>
+
         <!-- spring -->
         <dependency>
             <groupId>org.springframework</groupId>
